@@ -1,6 +1,15 @@
 package com.ppam.myapplication.data
 
+/**
+ * Object for providing dummy data for leaders.
+ */
 object DummyData {
+
+    /**
+     * Retrieves dummy data for leaders.
+     *
+     * @return Dummy data for leaders.
+     */
     fun getDummyLeaders(): List<Leader> {
         return listOf(
             Leader(
