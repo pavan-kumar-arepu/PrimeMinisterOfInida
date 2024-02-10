@@ -18,11 +18,10 @@ import com.ppam.myapplication.viewmodel.LeaderViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val navController = rememberNavController()
-        val leaderViewModel: LeaderViewModel = viewModel() // Assuming you have a LeaderViewModel
-
         setContent {
+
+            val navController = rememberNavController()
+            val leaderViewModel: LeaderViewModel = viewModel() // Assuming you have a LeaderViewModel
 
             MyApplicationTheme {
                 // A surface container using the 'background' color from the theme

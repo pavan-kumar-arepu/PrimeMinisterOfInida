@@ -10,15 +10,20 @@ import com.ppam.myapplication.repository.LeaderRepository
  *
  * @param repository The repository for fetching leader data.
  */
-class LeaderViewModel(private val repository: LeaderRepository) : ViewModel() {
+class LeaderViewModel() : ViewModel() {
 
+    private val _leaderRepository: LeaderRepository
+
+    init {
+        _leaderRepository = LeaderRepository()
+    }
     /**
      * Retrieves a list of leaders from the repository.
      *
      * @return A list of leaders.
      */
     fun getLeaders(): List<Leader> {
-        return repository.getLeaders()
+        return _leaderRepository.getLeaders()
     }
 
     /**
@@ -28,6 +33,6 @@ class LeaderViewModel(private val repository: LeaderRepository) : ViewModel() {
      * @return The leader with the specified ID, or null if not found.
      */
     fun getLeaderById(id: Int): Leader? {
-        return repository.getLeaderById(id)
+        return _leaderRepository.getLeaderById(id)
     }
 }
