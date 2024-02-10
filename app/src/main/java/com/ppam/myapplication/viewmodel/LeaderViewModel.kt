@@ -20,4 +20,14 @@ class LeaderViewModel(private val repository: LeaderRepository) : ViewModel() {
     fun getLeaders(): List<Leader> {
         return repository.getLeaders()
     }
+
+    /**
+     * Retrieves a leader by ID from the repository.
+     *
+     * @param id The ID of the leader to retrieve.
+     * @return The leader with the specified ID, or null if not found.
+     */
+    fun getLeaderById(id: Int): Leader? {
+        return repository.getLeaderById(id)
+    }
 }
