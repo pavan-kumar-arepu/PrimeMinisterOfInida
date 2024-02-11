@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Indian Leaders</string>
     <dimen name="top_app_bar_height">56dp</dimen>
 </resources>

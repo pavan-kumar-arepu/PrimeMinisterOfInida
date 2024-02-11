@@ -23,8 +23,8 @@ class LeaderViewModel(private val repository: LeaderRepository) : ViewModel() {
     val leaders: LiveData<List<Leader>> = _leaders
 
     // State for indicating whether data is currently being loaded
-    private val _loading = mutableStateOf(false)
-    val loading: State<Boolean> = _loading
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
 
     // State for holding error message, if any
     private val _error = mutableStateOf<String?>(null)

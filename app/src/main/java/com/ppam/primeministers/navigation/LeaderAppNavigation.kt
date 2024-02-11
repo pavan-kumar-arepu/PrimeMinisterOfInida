@@ -1,6 +1,8 @@
 package com.ppam.primeministers.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -17,20 +19,19 @@ fun LeaderAppNavigation(navController: NavHostController,
         startDestination = LeaderAppScreen.LeaderList.route) {
         composable(LeaderAppScreen.LeaderList.route) {
             val leaders = leaderViewModel.leaders.observeAsState(emptyList()) // Provide default empty list
-            val isLoading = leaderViewModel.loading.value // Directly access the value
+            val loaderState  =  leaderViewModel.loading.observeAsState(true)
 
             LeaderListScreen(
-            leaders = leaders.value,
-            onItemClick = { leader ->
-                navController.navigate("${LeaderAppScreen.DetailedLeader.route}/${leader.id}")
-            },
-            isLoading = leaderViewModel.loading.value // Pass loading state
-        )
-    }
+                leaders = leaders.value,
+                onItemClick = { leader ->
+                    navController.navigate("${LeaderAppScreen.DetailedLeader.route}/${leader.id}")
+                },
+                isLoading = loaderState.value
+            )
+        }
         composable("${LeaderAppScreen.DetailedLeader.route}/{leaderId}") { backStackEntry ->
             val leaderId = backStackEntry.arguments?.getString("leaderId")
             val leaders = leaderViewModel.leaders.observeAsState(emptyList()) // Provide default empty list
-            val isLoading = leaderViewModel.loading.value // Directly access the value
 
             leaderId?.toIntOrNull()?.let { id ->
                 val leader = leaderViewModel.getLeaderById(id)
