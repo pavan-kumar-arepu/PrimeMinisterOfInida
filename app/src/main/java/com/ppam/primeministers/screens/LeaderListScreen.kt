@@ -1,6 +1,7 @@
 package com.ppam.primeministers.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -55,6 +57,7 @@ Scaffold(
                         .padding(0.dp)
                         .background(Color.Transparent)
                 ){
+
                     Image(
                         painter = painterResource(id = R.drawable.indian_leaders), // Replace "your_image" with the actual image resource
                         contentDescription = "Indian Leaders", // Provide proper content description
@@ -97,9 +100,19 @@ Card(
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Display the leader image here
+
+        val context = LocalContext.current
+        val resourceId = try {
+            context.resources.getIdentifier(leader.logo, "drawable", context.packageName)
+        } catch (e: Exception) {
+            // Log the error or handle it accordingly
+            Log.e("LeaderCard", "Error loading resource: ${e.message}")
+            // Return a fallback resource ID or 0
+            0
+        }
+
         Image(
-            painter = painterResource(id = R.drawable.nehru), // Assuming you have image resources
+            painter = painterResource(id = if (resourceId != 0) resourceId else R.drawable.roundif),
             contentDescription = null, // Provide proper content description
             modifier = Modifier.size(72.dp)
         )

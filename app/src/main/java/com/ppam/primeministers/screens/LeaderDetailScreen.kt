@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,8 +31,8 @@ import com.ppam.primeministers.data.Leader
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "DiscouragedApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailedLeaderScreen(leader: Leader,
-                         onBackPressed: () -> Unit) {
+
+fun DetailedLeaderScreen(leader: Leader, onBackPressed: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -50,43 +52,39 @@ fun DetailedLeaderScreen(leader: Leader,
             )
         }
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            contentPadding = PaddingValues(16.dp)
         ) {
-            // Display the leader image here
-
-            val context = LocalContext.current
-            val resourceId = context.resources.getIdentifier(leader.logo, "drawable", context.packageName)
-
-            Image(
-                painter = painterResource(id = resourceId),
-                contentDescription = "Prime Minister",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-                    .padding(vertical = 16.dp)
-            )
-
-            Text(
-                text = leader.party,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-
-            Text(
-                text = leader.rulingPeriod,
-                style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            Text(
-                text = leader.about,
-                style = MaterialTheme.typography.labelMedium
-            )
+            item {
+                // Display the leader image here
+                val context = LocalContext.current
+                val resourceId = context.resources.getIdentifier(leader.logo, "drawable", context.packageName)
+                Image(
+                    painter = painterResource(id = resourceId),
+                    contentDescription = "Prime Minister",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f)
+                        .padding(vertical = 16.dp)
+                )
+                Text(
+                    text = leader.party,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+                Text(
+                    text = leader.rulingPeriod,
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                Text(
+                    text = leader.about,
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
         }
     }
 }
