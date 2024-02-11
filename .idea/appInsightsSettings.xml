@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.ppam.primeministers" />
+                  <option name="mobileSdkAppId" value="1:238074431220:android:b2f21779d126f05397c0a1" />
+                  <option name="projectId" value="leaderofindia-4fb05" />
+                  <option name="projectNumber" value="238074431220" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

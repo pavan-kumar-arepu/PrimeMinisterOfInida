@@ -1,34 +1,26 @@
 package com.ppam.primeministers.viewmodel
 
-import android.app.Application
 import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ppam.primeministers.data.Leader
 import com.ppam.primeministers.repository.LeaderRepository
 import kotlinx.coroutines.launch
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
 /**
  * ViewModel for managing leader data.
  *
  * @param repository The repository for fetching leader data.
  */
-class LeaderViewModel(application: Application) : AndroidViewModel(application) {
+class LeaderViewModel(private val repository: LeaderRepository) : ViewModel() {
 
-    private val _leaderRepository: LeaderRepository
-    private val context: Context = getApplication<Application>().applicationContext
-
-    init {
-        _leaderRepository = LeaderRepository(context)
-    }
-
-
-    // State for holding the list of leaders
-    private val _leaders = mutableStateOf<List<Leader>>(emptyList())
-    val leaders: State<List<Leader>> = _leaders
+    private val _leaders: MutableLiveData<List<Leader>> = MutableLiveData()
+    val leaders: LiveData<List<Leader>> = _leaders
 
     // State for indicating whether data is currently being loaded
     private val _loading = mutableStateOf(false)
@@ -54,7 +46,7 @@ class LeaderViewModel(application: Application) : AndroidViewModel(application) 
                 // Set loading state to true
                 _loading.value = true
                 // Attempt to fetch leaders from local storage
-                val localLeaders = _leaderRepository.getLeadersFromLocalPreferences()
+                val localLeaders = repository.getLeadersFromLocalPreferences()
                 if (localLeaders.isNotEmpty()) {
                     // If local data is available, update leaders state
                     _leaders.value = localLeaders
@@ -78,12 +70,12 @@ class LeaderViewModel(application: Application) : AndroidViewModel(application) 
      */
     private fun fetchLeadersFromRemote() {
         viewModelScope.launch {
-            _leaderRepository.fetchLeadersFromRemoteConfig(
+            repository.fetchLeadersFromRemoteConfig(
                 onSuccess = { leaders ->
                     // Update leaders state with fetched data
                     _leaders.value = leaders
                     // Save fetched leaders to local storage
-                    _leaderRepository.saveLeadersToLocalPreferences(leaders)
+                    repository.saveLeadersToLocalPreferences(leaders)
                 },
                 onFailure = { exception ->
                     // Update error state if an exception occurs during remote fetch
@@ -99,7 +91,7 @@ class LeaderViewModel(application: Application) : AndroidViewModel(application) 
      * @return A list of leaders.
      */
     fun getLeaders(): List<Leader> {
-        return _leaderRepository.getLeadersFromLocalPreferences()
+        return repository.getLeadersFromLocalPreferences()
     }
 
     /**
@@ -109,7 +101,7 @@ class LeaderViewModel(application: Application) : AndroidViewModel(application) 
      * @return The leader with the specified ID, or null if not found.
      */
     fun getLeaderById(id: Int): Leader? {
-        val leaders = _leaderRepository.getLeadersFromLocalPreferences()
+        val leaders = repository.getLeadersFromLocalPreferences()
         return leaders.find { it.id == id }
     }
 
@@ -123,7 +115,7 @@ class LeaderViewModel(application: Application) : AndroidViewModel(application) 
         onSuccess: (List<Leader>) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        _leaderRepository.fetchLeadersFromRemoteConfig(onSuccess, onFailure)
+        repository.fetchLeadersFromRemoteConfig(onSuccess, onFailure)
     }
 
     /**
@@ -132,7 +124,7 @@ class LeaderViewModel(application: Application) : AndroidViewModel(application) 
      * @param leaders List of leaders to save.
      */
     fun saveLeadersToLocalPreferences(leaders: List<Leader>) {
-        _leaderRepository.saveLeadersToLocalPreferences(leaders)
+        repository.saveLeadersToLocalPreferences(leaders)
     }
 
     /**
@@ -141,6 +133,6 @@ class LeaderViewModel(application: Application) : AndroidViewModel(application) 
      * @return A list of leaders stored in local preferences.
      */
     fun getLeadersFromLocalPreferences(): List<Leader> {
-        return _leaderRepository.getLeadersFromLocalPreferences()
+        return repository.getLeadersFromLocalPreferences()
     }
 }
