@@ -33,8 +33,9 @@ The app follows the **MVVM (Model-View-ViewModel)** architecture pattern. It sep
 To build and run the app locally, follow these steps:
 
 1. Clone this repository to your local machine.
-2. Open the project in Android Studio.
-3. Build and run the app on a device or emulator.
+   <https://github.com/pavan-kumar-arepu/PrimeMinisterOfInida.git>
+3. Open the project in Android Studio.
+4. Build and run the app on a device or emulator.
 
 ## Class Overview
 
