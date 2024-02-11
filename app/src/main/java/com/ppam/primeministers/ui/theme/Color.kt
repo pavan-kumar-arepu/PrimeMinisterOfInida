@@ -1,4 +1,4 @@
-package com.ppam.myapplication.ui.theme
+package com.ppam.primeministers.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

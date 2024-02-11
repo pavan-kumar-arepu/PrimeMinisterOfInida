@@ -1,4 +1,4 @@
-package com.ppam.myapplication
+package com.ppam.primeministers
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,28 +9,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.ppam.myapplication.data.DummyData
-import com.ppam.myapplication.navigation.LeaderAppNavigation
-import com.ppam.myapplication.screens.LeaderListScreen
-import com.ppam.myapplication.ui.theme.MyApplicationTheme
-import com.ppam.myapplication.viewmodel.LeaderViewModel
+import com.ppam.primeministers.navigation.LeaderAppNavigation
+import com.ppam.primeministers.ui.theme.MyApplicationTheme
+import com.ppam.primeministers.viewmodel.LeaderViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             val navController = rememberNavController()
-            val leaderViewModel: LeaderViewModel = viewModel() // Assuming you have a LeaderViewModel
+            val leaderViewModel: LeaderViewModel = viewModel()  // Use viewModel() to initialize ViewModel
 
             MyApplicationTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LeaderAppNavigation(navController = navController,
-                        leaderViewModel = leaderViewModel)
+                    LeaderAppNavigation(navController = navController, leaderViewModel = leaderViewModel)
                 }
             }
         }

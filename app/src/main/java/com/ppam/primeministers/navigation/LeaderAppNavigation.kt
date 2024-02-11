@@ -1,13 +1,13 @@
-package com.ppam.myapplication.navigation
+package com.ppam.primeministers.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.ppam.myapplication.screens.DetailedLeaderScreen
-import com.ppam.myapplication.screens.LeaderListScreen
-import com.ppam.myapplication.viewmodel.LeaderViewModel
+import com.ppam.primeministers.screens.DetailedLeaderScreen
+import com.ppam.primeministers.screens.LeaderListScreen
+import com.ppam.primeministers.viewmodel.LeaderViewModel
+
 
 @Composable
 fun LeaderAppNavigation(navController: NavHostController,
@@ -15,11 +15,14 @@ fun LeaderAppNavigation(navController: NavHostController,
     NavHost(navController = navController,
         startDestination = LeaderAppScreen.LeaderList.route) {
         composable(LeaderAppScreen.LeaderList.route) {
-        LeaderListScreen(
-            leaders = leaderViewModel.getLeaders(),
+            val leaders = leaderViewModel.getLeaders()
+
+            LeaderListScreen(
+            leaders = leaders,
             onItemClick = { leader ->
                 navController.navigate("${LeaderAppScreen.DetailedLeader.route}/${leader.id}")
-            }
+            },
+            isLoading = leaderViewModel.loading.value // Pass loading state
         )
     }
         composable("${LeaderAppScreen.DetailedLeader.route}/{leaderId}") { backStackEntry ->

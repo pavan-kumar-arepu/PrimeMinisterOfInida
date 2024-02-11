@@ -1,4 +1,4 @@
-package com.ppam.myapplication
+package com.ppam.primeministers
 
 import org.junit.Test
 

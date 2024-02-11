@@ -1,4 +1,4 @@
-package com.ppam.myapplication.screens
+package com.ppam.primeministers.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -24,8 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.ppam.myapplication.data.Leader
+import com.ppam.primeministers.data.Leader
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "DiscouragedApi")
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package com.ppam.myapplication.ui.theme
+package com.ppam.primeministers.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.ppam.myapplication.data
+package com.ppam.primeministers.data
 
 /**
  * Data class representing a leader.

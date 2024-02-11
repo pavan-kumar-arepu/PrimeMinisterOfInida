@@ -1,4 +1,4 @@
-package com.ppam.myapplication.navigation
+package com.ppam.primeministers.navigation
 
 sealed class LeaderAppScreen(val route: String) {
     object LeaderList : LeaderAppScreen("leaderList")
